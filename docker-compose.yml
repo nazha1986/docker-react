@@ -1,0 +1,24 @@
+version: '3'
+services: 
+    web:
+        #guarda nella directory per un Dockerfile ed utilizza quello per buildare  
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        #la prima porta e della local machine la seconda e' quella del container    
+        ports:
+            - "3000:3000"
+        volumes: 
+            # significa non provare a mappare questo path inside the container
+            -  /app/node_modules
+            #mappa questo folder fuori dal container al /app dentro il container
+            - .:/app
+    #non e' la soluzione migliore per i test         
+    tests:        
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes: 
+            -  /app/node_modules
+            - .:/app
+        command: ["npm","run","start"]    

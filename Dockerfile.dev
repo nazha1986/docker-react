@@ -1,0 +1,11 @@
+#utilizzare una immage come base 
+FROM node:alpine
+WORKDIR /app
+
+#scaricare ed installare una dipendenza
+COPY package.json .
+RUN npm install
+COPY . .
+
+#specificare all'imagine che cosa fare quando viene startata come container
+CMD ["npm","run","start"]
